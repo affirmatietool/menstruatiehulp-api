@@ -47,6 +47,6 @@ app.post("/api/affirmations", (req, res) => {
   res.json({ affirmation, suggestion });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server draait op poort ${PORT}`);
-});
+// Zorgt ervoor dat Vercel de server herkent
+module.exports = app;
+
