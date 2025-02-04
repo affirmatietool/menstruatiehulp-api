@@ -83,16 +83,7 @@ app.post("/api/affirmations", (req, res) => {
   
   const match = Object.keys(responses).find(key => feeling.toLowerCase().includes(key));
   
-  if (!match) {
-    return res.json({
-      response: defaultResponses.responses[Math.floor(Math.random() * defaultResponses.responses.length)],
-      affirmation: defaultResponses.affirmations[Math.floor(Math.random() * defaultResponses.affirmations.length)],
-      suggestion: defaultResponses.suggestions[Math.floor(Math.random() * defaultResponses.suggestions.length)],
-      action: defaultResponses.actions[Math.floor(Math.random() * defaultResponses.actions.length)]
-    });
-  }
-
-  const data = responses[match];
+  const data = match ? responses[match] : defaultResponses;
 
   res.json({
     response: data.responses[Math.floor(Math.random() * data.responses.length)],
