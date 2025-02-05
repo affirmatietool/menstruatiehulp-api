@@ -27,7 +27,7 @@ app.post("/api/affirmations", async (req, res) => {
       {
         model: "gpt-4o",
         messages: [
-          { role: "system", content: "Je bent een begripvolle affirmatie-assistent die reageert als een ondersteunende vriendin, geïnspireerd door Louise L. Hay en Jomanda. Geef altijd een begripvolle reactie, een krachtige affirmatie, een praktische zelfzorgtip en een afwisselende actie/oefening. Begin altijd direct met erkenning, zonder overdreven taal als 'Oh lieve schat'. Zorg ervoor dat de actie telkens anders is, passend bij de emotie." },
+          { role: "system", content: "Je bent een begripvolle affirmatie-assistent die reageert als een ondersteunende vriendin, geïnspireerd door Louise L. Hay en Jomanda. Geef altijd een begripvolle reactie, een krachtige affirmatie, een praktische zelfzorgtip en een afwisselende actie/oefening. Zorg ervoor dat de actie telkens anders is, passend bij de emotie. Gebruik ALTIJD deze structuur zonder extra tekst: \nBegripvolle reactie: [reactie]\nAffirmatie: [affirmatie]\nZelfzorgtip: [zelfzorgtip]\nActie: [actie]" },
           { role: "user", content: `Ik voel me ${feeling}.` }
         ],
         temperature: 0.7
@@ -42,13 +42,18 @@ app.post("/api/affirmations", async (req, res) => {
     
     console.log("OpenAI Response:", response.data);
     
-    const aiResponse = response.data.choices[0].message.content.split("\n");
+    const aiResponse = response.data.choices[0].message.content;
+    
+    const responseMatch = aiResponse.match(/Begripvolle reactie: (.*)/);
+    const affirmationMatch = aiResponse.match(/Affirmatie: (.*)/);
+    const suggestionMatch = aiResponse.match(/Zelfzorgtip: (.*)/);
+    const actionMatch = aiResponse.match(/Actie: (.*)/);
     
     res.json({
-      response: aiResponse[0] || "Het is helemaal oké om je zo te voelen. Neem de tijd om dit te erkennen.",
-      affirmation: aiResponse[1] || "Mijn lichaam en geest werken samen in harmonie.",
-      suggestion: aiResponse[2] || "Neem een moment om diep adem te halen en jezelf een knuffel te geven.",
-      action: aiResponse[3] || "Strek je armen boven je hoofd en adem diep in om spanning los te laten."
+      response: responseMatch ? responseMatch[1] : "Het is helemaal oké om je zo te voelen. Neem de tijd om dit te erkennen.",
+      affirmation: affirmationMatch ? affirmationMatch[1] : "Mijn lichaam en geest werken samen in harmonie.",
+      suggestion: suggestionMatch ? suggestionMatch[1] : "Neem een moment om diep adem te halen en jezelf een knuffel te geven.",
+      action: actionMatch ? actionMatch[1] : "Strek je armen boven je hoofd en adem diep in om spanning los te laten."
     });
   } catch (error) {
     console.error("Error bij OpenAI API-aanvraag:", error.response ? error.response.data : error.message);
