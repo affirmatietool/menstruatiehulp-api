@@ -15,7 +15,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 app.post("/api/affirmations", async (req, res) => {
   const { feeling } = req.body;
   
-  if (!feeling) {
+  if (!feeling || feeling.trim() === "") {
     return res.status(400).json({ error: "Voer in hoe je je voelt tijdens je menstruatie." });
   }
 
