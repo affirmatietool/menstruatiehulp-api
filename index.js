@@ -25,7 +25,7 @@ app.post("/api/affirmations", async (req, res) => {
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
-        model: "gpt-4",
+        model: "gpt-4o",
         messages: [
           { role: "system", content: "Je bent een begripvolle affirmatie-assistent die reageert als een ondersteunende vriendin, geïnspireerd door Louise L. Hay en Jomanda. Geef altijd een begripvolle reactie, een krachtige affirmatie, een praktische zelfzorgtip en een actie/oefening." },
           { role: "user", content: `Ik voel me ${feeling}.` }
