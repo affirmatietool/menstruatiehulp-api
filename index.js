@@ -53,6 +53,7 @@ Belangrijk:
 
 Jouw toon is warm, begripvol en ondersteunend, alsof je een liefdevolle vriendin bent die de gebruiker ziet, hoort en begrijpt.
 
+
 De gebruiker zegt: "Tijdens mijn menstruatie voel ik me ${feeling}."`
 }
 
@@ -71,10 +72,11 @@ De gebruiker zegt: "Tijdens mijn menstruatie voel ik me ${feeling}."`
     
     const aiMessage = response.data.choices[0]?.message?.content || "";
     
-    const responseMatch = aiMessage.match(/Begripvolle reactie: (.*)/)?.[1] || "Het is volkomen normaal om je zo te voelen. Geef jezelf toestemming om te rusten en voor jezelf te zorgen.";
-    const affirmationMatch = aiMessage.match(/Affirmatie: (.*)/)?.[1] || "Mijn lichaam is wijs en sterk, en ik vertrouw op het natuurlijke proces van mijn cyclus.";
-    const suggestionMatch = aiMessage.match(/Zelfzorgtip: (.*)/)?.[1] || "Drink een warme kruidenthee zoals gember of kamille om je buik te verzachten.";
-    const actionMatch = aiMessage.match(/Actie: (.*)/)?.[1] || "Ga in een comfortabele houding liggen, leg je handen op je onderbuik en adem diep in en uit.";
+    const responseMatch = aiMessage.match(/\*\*Begripvolle reactie:\*\*\s*([\s\S]*?)\n(?=\*\*Affirmatie)/)?.[1]?.trim() || "Het is volkomen normaal om je zo te voelen. Geef jezelf toestemming om te rusten en voor jezelf te zorgen.";
+    const affirmationMatch = aiMessage.match(/\*\*Affirmatie:\*\*\s*([\s\S]*?)\n(?=\*\*Zelfzorgtip)/)?.[1]?.trim() || "Mijn lichaam is wijs en sterk, en ik vertrouw op het natuurlijke proces van mijn cyclus.";
+    const suggestionMatch = aiMessage.match(/\*\*Zelfzorgtip:\*\*\s*([\s\S]*?)\n(?=\*\*Actie)/)?.[1]?.trim() || "Drink een warme kruidenthee zoals gember of kamille om je buik te verzachten.";
+    const actionMatch = aiMessage.match(/\*\*Actie:\*\*\s*([\s\S]*)/)?.[1]?.trim() || "Ga in een comfortabele houding liggen, leg je handen op je onderbuik en adem diep in en uit.";
+
     
     res.json({
       response: responseMatch,
