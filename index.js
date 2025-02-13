@@ -71,11 +71,12 @@ De gebruiker zegt: "Tijdens mijn menstruatie voel ik me ${feeling}."`
     console.log("OpenAI Response:", response.data);
     
     const aiMessage = response.data.choices[0]?.message?.content || "";
-    
+
+    const krachtboodschap = "<strong>✨ Jouw krachtboodschap:</strong><br><br>";
     const responseMatch = aiMessage.match(/\*\*Begripvolle reactie:\*\*\s*([\s\S]*?)\n(?=\*\*Affirmatie)/)?.[1]?.trim() || "Het is volkomen normaal om je zo te voelen. Geef jezelf toestemming om te rusten en voor jezelf te zorgen.";
-const affirmationMatch = "🌿💖 **Affirmatie:** " + (aiMessage.match(/\*\*Affirmatie:\*\*\s*([\s\S]*?)\n(?=\*\*Zelfzorgtip)/)?.[1]?.trim() || "Mijn lichaam is wijs en sterk, en ik vertrouw op het natuurlijke proces van mijn cyclus.");
-const suggestionMatch = "☕🫖 **Zelfzorgtip:** " + (aiMessage.match(/\*\*Zelfzorgtip:\*\*\s*([\s\S]*?)\n(?=\*\*Actie)/)?.[1]?.trim() || "Drink een warme kruidenthee zoals gember of kamille om je buik te verzachten.");
-const actionMatch = "🧘‍♀️🌀 **Actie:** " + (aiMessage.match(/\*\*Actie:\*\*\s*([\s\S]*)/)?.[1]?.trim() || "Ga in een comfortabele houding liggen, leg je handen op je onderbuik en adem diep in en uit.");
+const affirmationMatch = "🌿💖 <strong>Affirmatie:</strong> " + (aiMessage.match(/\*\*Affirmatie:\*\*\s*([\s\S]*?)\n(?=\*\*Zelfzorgtip)/)?.[1]?.trim() || "Mijn lichaam is wijs en sterk, en ik vertrouw op het natuurlijke proces van mijn cyclus.");
+const suggestionMatch = "☕🫖 <strong>Zelfzorgtip:</strong> " + (aiMessage.match(/\*\*Zelfzorgtip:\*\*\s*([\s\S]*?)\n(?=\*\*Actie)/)?.[1]?.trim() || "Drink een warme kruidenthee zoals gember of kamille om je buik te verzachten.");
+const actionMatch = "🧘‍♀️🌀 <strong>Actie:</strong> " + (aiMessage.match(/\*\*Actie:\*\*\s*([\s\S]*)/)?.[1]?.trim() || "Ga in een comfortabele houding liggen, leg je handen op je onderbuik en adem diep in en uit.");
 
 
 
