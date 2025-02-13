@@ -21,7 +21,7 @@ app.post("/api/affirmations", async (req, res) => {
 
   try {
     console.log("Verstuur API-aanvraag naar OpenAI...");
-    
+
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -54,22 +54,34 @@ De gebruiker zegt: "Tijdens mijn menstruatie voel ik me ${feeling}."`
 
     const aiMessage = response.data.choices[0]?.message?.content || "";
 
-    const responseMatch = aiMessage.match(/\*\*Begripvolle reactie:\*\*\s*([\s\S]*?)\n(?=\*\*Affirmatie)/)?.[1]?.trim() || "Geen begripvolle reactie ontvangen.";
-    const affirmationMatch = aiMessage.match(/\*\*Affirmatie:\*\*\s*([\s\S]*?)\n(?=\*\*Zelfzorgtip)/)?.[1]?.trim() || "Geen affirmatie ontvangen.";
-    const suggestionMatch = aiMessage.match(/\*\*Zelfzorgtip:\*\*\s*([\s\S]*?)\n(?=\*\*Actie)/)?.[1]?.trim() || "Geen zelfzorgtip ontvangen.";
-    const actionMatch = aiMessage.match(/\*\*Actie:\*\*\s*([\s\S]*)/)?.[1]?.trim() || "Geen actie ontvangen.";
+    // Verwerk de output correct en zorg dat elke sectie een waarde heeft.
+    const responseMatch = aiMessage.match(/\*\*Begripvolle reactie:\*\*\s*([\s\S]*?)\n(?=\*\*Affirmatie)/)?.[1]?.trim() 
+      || "🫂 Het is volkomen normaal om je zo te voelen. Geef jezelf toestemming om te rusten en voor jezelf te zorgen.";
+
+    const affirmationMatch = aiMessage.match(/\*\*Affirmatie:\*\*\s*([\s\S]*?)\n(?=\*\*Zelfzorgtip)/)?.[1]?.trim() 
+      || "🌿💖 Ik ben in harmonie met mijn lichaam en geef mezelf de ruimte om te voelen.";
+
+    const suggestionMatch = aiMessage.match(/\*\*Zelfzorgtip:\*\*\s*([\s\S]*?)\n(?=\*\*Actie)/)?.[1]?.trim() 
+      || "☕🫖 Probeer een kopje gemberthee. Dit kan helpen om je buik te verzachten en je lichaam te ontspannen.";
+
+    const actionMatch = aiMessage.match(/\*\*Actie:\*\*\s*([\s\S]*)/)?.[1]?.trim() 
+      || "🧘‍♀️🌀 Neem een paar minuten de tijd voor de Child's Pose (Balasana). Deze houding helpt om spanning in je onderrug en buik te verlichten.";
 
     console.log("responseMatch:", responseMatch);
     console.log("affirmationMatch:", affirmationMatch);
     console.log("suggestionMatch:", suggestionMatch);
     console.log("actionMatch:", actionMatch);
 
-    res.json({
-      response: responseMatch,
-      affirmation: affirmationMatch,
-      suggestion: suggestionMatch,
-      action: actionMatch
-    });
+    // Zorg ervoor dat de HTML goed wordt weergegeven
+    const formattedResponse = `
+      <strong>✨ Jouw krachtboodschap:</strong><br><br>
+      ${responseMatch}<br><br>
+      <strong>🌿💖 Affirmatie:</strong> ${affirmationMatch}<br>
+      <strong>☕🫖 Zelfzorgtip:</strong> ${suggestionMatch}<br>
+      <strong>🧘‍♀️🌀 Actie:</strong> ${actionMatch}
+    `;
+
+    res.json({ response: formattedResponse });
 
   } catch (error) {
     console.error("Error bij OpenAI API-aanvraag:", error.response ? error.response.data : error.message);
