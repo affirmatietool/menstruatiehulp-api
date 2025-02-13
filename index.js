@@ -71,9 +71,9 @@ const actionMatch = aiMessage.match(/\*\*Actie:\*\*\s*([\s\S]*)/)?.[1]?.trim()
 // Voeg `<strong>` toe om vetgedrukte tekst correct weer te geven in HTML
 const formattedResponse = `
   <strong>✨ Jouw krachtboodschap:</strong><br><br>
-  🫂 <strong>${responseMatch}</strong><br><br>
-  🌿💖 <strong>Affirmatie:</strong> ${affirmationMatch}<br>
-  ☕🫖 <strong>Zelfzorgtip:</strong> ${suggestionMatch}<br>
+  <strong>${responseMatch}</strong><br><br><br>
+  🌿💖 <strong>Affirmatie:</strong> ${affirmationMatch}<br><br>
+  ☕🫖 <strong>Zelfzorgtip:</strong> ${suggestionMatch}<br><br>
   🧘‍♀️🌀 <strong>Actie:</strong> ${actionMatch}
 `;
 
