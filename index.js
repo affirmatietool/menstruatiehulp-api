@@ -16,7 +16,7 @@ app.post("/api/affirmations", async (req, res) => {
   const { feeling } = req.body;
 
   if (!feeling || feeling.trim() === "") {
-    return res.status(400).json({ error: "Voer in hoe je je voelt tijdens je menstruatie." });
+    return res.status(400).json({ error: "Voer in hoe je je voelt." });
   }
 
   try {
