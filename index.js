@@ -76,8 +76,8 @@ De gebruiker zegt: "Tijdens mijn menstruatie voel ik me ${feeling}."`
     const formattedResponse = `
       <strong>✨ Jouw krachtboodschap:</strong><br><br>
       ${responseMatch}<br><br>
-      <strong>🌿💖 Affirmatie:</strong> ${affirmationMatch}<br>
-      <strong>☕🫖 Zelfzorgtip:</strong> ${suggestionMatch}<br>
+      <strong>🌿💖 Affirmatie:</strong> ${affirmationMatch}<br><br>
+      <strong>☕🫖 Zelfzorgtip:</strong> ${suggestionMatch}<br><br>
       <strong>🧘‍♀️🌀 Actie:</strong> ${actionMatch}
     `;
 
