@@ -57,27 +57,27 @@ De gebruiker zegt: "Tijdens mijn menstruatie voel ik me ${feeling}."`
 
     // Extract correct information using regex
     const responseMatch = aiMessage.match(/\*\*Begripvolle reactie:\*\*\s*([\s\S]*?)\n(?=\*\*Affirmatie)/)?.[1]?.trim() 
-      || "Het is volkomen normaal om je zo te voelen. Geef jezelf toestemming om te rusten en voor jezelf te zorgen.";
+  || "Het is volkomen normaal om je zo te voelen. Geef jezelf toestemming om te rusten en voor jezelf te zorgen.";
 
-    const affirmationMatch = aiMessage.match(/\*\*Affirmatie:\*\*\s*([\s\S]*?)\n(?=\*\*Zelfzorgtip)/)?.[1]?.trim() 
-      || "Mijn lichaam is wijs en sterk, en ik vertrouw op het natuurlijke proces van mijn cyclus.";
+const affirmationMatch = aiMessage.match(/\*\*Affirmatie:\*\*\s*([\s\S]*?)\n(?=\*\*Zelfzorgtip)/)?.[1]?.trim() 
+  || "Mijn lichaam is wijs en sterk, en ik vertrouw op het natuurlijke proces van mijn cyclus.";
 
-    const suggestionMatch = aiMessage.match(/\*\*Zelfzorgtip:\*\*\s*([\s\S]*?)\n(?=\*\*Actie)/)?.[1]?.trim() 
-      || "Drink een warme kruidenthee zoals gember of kamille om je buik te verzachten.";
+const suggestionMatch = aiMessage.match(/\*\*Zelfzorgtip:\*\*\s*([\s\S]*?)\n(?=\*\*Actie)/)?.[1]?.trim() 
+  || "Drink een warme kruidenthee zoals gember of kamille om je buik te verzachten.";
 
-    const actionMatch = aiMessage.match(/\*\*Actie:\*\*\s*([\s\S]*)/)?.[1]?.trim() 
-      || "Ga in een comfortabele houding liggen, leg je handen op je onderbuik en adem diep in en uit.";
+const actionMatch = aiMessage.match(/\*\*Actie:\*\*\s*([\s\S]*)/)?.[1]?.trim() 
+  || "Ga in een comfortabele houding liggen, leg je handen op je onderbuik en adem diep in en uit.";
 
-    // Create properly formatted HTML response
-    const formattedResponse = `
-      <strong>✨ Jouw krachtboodschap:</strong><br><br>
-      🫂 ${responseMatch}<br><br>
-      🌿💖 <strong>Affirmatie:</strong> ${affirmationMatch}<br>
-      ☕🫖 <strong>Zelfzorgtip:</strong> ${suggestionMatch}<br>
-      🧘‍♀️🌀 <strong>Actie:</strong> ${actionMatch}
-    `;
+// Voeg `<strong>` toe om vetgedrukte tekst correct weer te geven in HTML
+const formattedResponse = `
+  <strong>✨ Jouw krachtboodschap:</strong><br><br>
+  🫂 <strong>${responseMatch}</strong><br><br>
+  🌿💖 <strong>Affirmatie:</strong> ${affirmationMatch}<br>
+  ☕🫖 <strong>Zelfzorgtip:</strong> ${suggestionMatch}<br>
+  🧘‍♀️🌀 <strong>Actie:</strong> ${actionMatch}
+`;
 
-    res.json({ response: formattedResponse });
+res.json({ response: formattedResponse });
 
   } catch (error) {
     console.error("Error bij OpenAI API-aanvraag:", error.response ? error.response.data : error.message);
