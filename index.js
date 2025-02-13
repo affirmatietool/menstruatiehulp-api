@@ -34,7 +34,7 @@ app.post("/api/affirmations", async (req, res) => {
 Antwoord ALTIJD exact in dit formaat:
 
 **Begripvolle reactie:** [Schrijf een warme, ondersteunende boodschap die de emotie erkent.]  
-Affirmatie: [Bied een krachtige en liefdevolle affirmatie die helpt bij emotioneel herstel.]  
+**Affirmatie:** [Bied een krachtige en liefdevolle affirmatie die helpt bij emotioneel herstel.]  
 **Zelfzorgtip:** [Geef een praktische en haalbare zelfzorgsuggestie, zoals voeding, thee, ademhalingsoefening, of massage.]  
 **Actie:** [Bied een unieke en toepasbare oefening zoals een yoga-houding, visualisatie, of massagepunt. Moet per respons verschillen.]  
 
@@ -56,7 +56,7 @@ De gebruiker zegt: "Tijdens mijn menstruatie voel ik me ${feeling}."`
     const aiMessage = response.data.choices[0]?.message?.content || "";
 
     // Extract correct information using regex
-    const responseMatch = aiMessage.match(/\*\*Begripvolle reactie:\*\*\s*([\s\S]*?)\n(?=\*\*Affirmatie)/)?.[1]?.trim() 
+    const responseMatch = aiMessage.match(/\*\*Begripvolle reactie:\s*([\s\S]*?)\n(?=\*\*Affirmatie)/)?.[1]?.trim() 
       || "Het is volkomen normaal om je zo te voelen. Geef jezelf toestemming om te rusten en voor jezelf te zorgen.";
 
     const affirmationMatch = aiMessage.match(/\*\*Affirmatie:\*\*\s*([\s\S]*?)\n(?=\*\*Zelfzorgtip)/)?.[1]?.trim() 
