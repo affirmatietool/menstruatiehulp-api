@@ -34,7 +34,7 @@ app.post("/api/affirmations", async (req, res) => {
 Antwoord ALTIJD exact in dit formaat:
 
 **Begripvolle reactie:** [Schrijf een warme, ondersteunende boodschap die de emotie erkent.]  
-**Affirmatie:** [Bied een krachtige en liefdevolle affirmatie die helpt bij emotioneel herstel.]  
+Affirmatie: [Bied een krachtige en liefdevolle affirmatie die helpt bij emotioneel herstel.]  
 **Zelfzorgtip:** [Geef een praktische en haalbare zelfzorgsuggestie, zoals voeding, thee, ademhalingsoefening, of massage.]  
 **Actie:** [Bied een unieke en toepasbare oefening zoals een yoga-houding, visualisatie, of massagepunt. Moet per respons verschillen.]  
 
